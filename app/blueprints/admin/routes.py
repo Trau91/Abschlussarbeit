@@ -1,5 +1,4 @@
 import os
-import secrets
 from uuid import uuid4
 from flask import Blueprint, render_template, redirect, url_for, flash, request, abort, current_app
 from flask_login import login_required, current_user
@@ -7,7 +6,7 @@ from app import db  # Stelle sicher, dass db importiert wird
 from app.models import Post
 from app.blueprints.admin.forms import PostForm  # Angenommen, du hast ein PostForm im Admin-Blueprint
 from werkzeug.utils import secure_filename
-from PIL import Image  # Wird für die Bildbearbeitung/Optimierung verwendet (muss noch installiert werden)
+
 
 admin = Blueprint('admin', __name__)
 
@@ -30,26 +29,19 @@ def admin_required(f):
 # --- Hilfsfunktion für sicheren Bild-Upload ---
 def save_picture(form_picture):
     # 1. Dateiendung prüfen (wird auch im Formular geprüft, hier doppelt gemoppelt für die Sicherheit)
+    # Behält die Config-Einstellung zur Validierung bei
     if not form_picture.filename.lower().endswith(tuple(current_app.config['ALLOWED_EXTENSIONS'])):
         return None
 
     # 2. Eindeutigen Dateinamen erstellen (Sicherheit: Schutz vor Pfadmanipulation)
-    # Nutzt UUID, wie im Pflichtenheft gefordert
-    random_hex = str(uuid4())
+    random_hex = str(uuid4()) # Nutzt UUID, wie im Pflichtenheft gefordert
     _, f_ext = os.path.splitext(form_picture.filename)
     picture_fn = random_hex + f_ext
     picture_path = os.path.join(current_app.config['UPLOAD_FOLDER'], picture_fn)
 
-    # 3. Bild speichern und optional größenoptimieren
-    try:
-        # Optimierung/Resize auf z.B. 500x500 (Optional, aber empfohlen für Performance)
-        output_size = (500, 500)
-        i = Image.open(form_picture)
-        i.thumbnail(output_size)
-        i.save(picture_path)
-    except Exception as e:
-        # Im Falle eines Fehlers bei der Bildbearbeitung, einfach abspeichern
-        form_picture.save(picture_path)
+    # 3. Bild speichern (OHNE Optimierung/Resize)
+    # Die hochgeladene Datei wird direkt am Zielpfad gespeichert.
+    form_picture.save(picture_path)
 
     return picture_fn
 
@@ -78,10 +70,11 @@ def new_post():
 
         post = Post(title=form.title.data,
                     content=form.content.data,
-                    image_file=image_file_name
+                    image_file=image_file_name,
+                    user_id=current_user.id
                     )
-        # Hinzufügen der User-Beziehung (optional, basierend auf deinem Datenmodell)
-        # Wenn Post eine 'user_id' hätte, müsste diese hier gesetzt werden.
+        # Hinzufügen der User-Beziehung (optional, basierend auf deinem Datenmodell) ERL
+        # Wenn Post eine 'user_id' hätte, müsste diese hier gesetzt werden. ERL
         # Da dein Pflichtenheft nur eine 1:N Beziehung erwähnt, aber die Post-Klasse
         # keine user_id hat, lassen wir das hier weg und nehmen an, dass es nur *einen* Admin gibt.
 
