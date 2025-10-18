@@ -37,8 +37,8 @@ def create_app(config_class=Config):
     app.register_blueprint(admin_bp, url_prefix='/admin')
 
     with app.app_context():
-        # WICHTIG: db.create_all() wurde entfernt, da Flask-Migrate verwendet wird.
-        # Nutze 'flask db upgrade', um die Datenbank zu erstellen und zu aktualisieren.
+        # Füge db.create_all() wieder hinzu, um die Datenbank zu erstellen.
+        db.create_all()
 
         from app.models import Post, User
 
