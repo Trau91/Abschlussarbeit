@@ -56,19 +56,8 @@ def create_app(config_class=Config):
                 image_file='prototype_update.jpg',
                 user_id=user_id_for_posts
             )
-            post2 = Post(
-                title='Elektronik-Integration',
-                content='Die ersten Sensoren sind angeschlossen und die Verkabelung ist fast abgeschlossen. Eine Herausforderung war die Wasserdichtigkeit.',
-                image_file='electronics_integration.jpg',
-                user_id=user_id_for_posts
-            )
-            post3 = Post(
-                title='Willkommen im Blog!',
-                content='Dies ist unser erster Blogbeitrag. Bleibt dran für weitere Updates zu unserem Projekt!',
-                image_file='default.jpg',
-                user_id=user_id_for_posts
-            )
-            db.session.add_all([post1, post2, post3])
+
+            db.session.add_all([post1])
             db.session.commit()
             print("Beispielbeiträge hinzugefügt.")
 
