@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <h1 class="mb-4">🌊 Projekt Nautilus: Der Tauchgleiter</h1>
+    <hr>
+
+    <div class="row">
+        <div class="col-md-8">
+            <h2 class="h4">Projektidee & Zielsetzung</h2>
+            <p>Die Idee hinter dem "Projekt Nautilus" ist die Entwicklung eines autonomen, kostengünstigen Tauchgleiters zur Langzeitüberwachung von Wasserqualität und Strömungsdaten. Dieses Projekt dient als praktische Umsetzung der Ausbildung zum Fachinformatiker (Anwendungsentwicklung) und demonstriert die Integration von Embedded Systems (Hardware), Datenbanksystemen und einer modernen Webanwendung (Flask Blog).</p>
+
+            <h2 class="h4 mt-4">Technologie-Stack</h2>
+            <ul>
+                <li>**Backend:** Python 3.11, Flask, SQLAlchemy</li>
+                <li>**Datenbank:** MySQL (mit PyMySQL-Treiber)</li>
+                <li>**Frontend:** Jinja2 Templating, Bootstrap 5, eigene `main.css`</li>
+                <li>**Sicherheit:** Passwort-Hashing via Werkzeug/Scrypt, sichere Admin-Authentifizierung.</li>
+            </ul>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card bg-light p-3">
+                <h3 class="h5">Projekthistorie</h3>
+                <p class="small text-muted">Beginn: [Datum einfügen]</p>
+                <p class="small text-muted">Status: Implementierung der Kernfunktionalität (CRUD).</p>
+                <p class="small">Sie können sich über den Admin Login anmelden, um neue Fortschrittsberichte zu erstellen.</p>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

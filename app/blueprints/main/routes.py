@@ -73,3 +73,9 @@ def logout():
     logout_user()
     flash('Du wurdest erfolgreich abgemeldet.', 'success')
     return redirect(url_for('main.index'))
+
+
+# --- About-Route ---
+@main.route('/about')
+def about():
+    return render_template('main/about.html', title='Über das Projekt')
