@@ -37,12 +37,8 @@ def save_picture(form_picture):
     random_hex = str(uuid4()) # Nutzt UUID, wie im Pflichtenheft gefordert
     _, f_ext = os.path.splitext(form_picture.filename)
     picture_fn = random_hex + f_ext
-    picture_path = os.path.join(current_app.config['UPLOAD_FOLDER'], picture_fn)
-
-    # 3. Bild speichern (OHNE Optimierung/Resize)
-    # Die hochgeladene Datei wird direkt am Zielpfad gespeichert.
-    form_picture.save(picture_path)
-
+    upload_path = os.path.join(current_app.root_path, 'static', 'uploads', picture_fn)
+    form_picture.save(upload_path)
     return picture_fn
 
 
@@ -96,7 +92,7 @@ def update_post(post_id):
         if form.image.data:
             # Altes Bild löschen, falls es nicht default.jpg ist
             if post.image_file != 'default.jpg':
-                old_picture_path = os.path.join(current_app.config['UPLOAD_FOLDER'], post.image_file)
+                old_picture_path = os.path.join(current_app.root_path, 'static', 'upload', post.image_file)
                 if os.path.exists(old_picture_path):
                     os.remove(old_picture_path)
 
@@ -126,7 +122,7 @@ def delete_post(post_id):
 
     # Bild-Datei löschen, falls es nicht default.jpg ist
     if post.image_file != 'default.jpg':
-        picture_path = os.path.join(current_app.config['UPLOAD_FOLDER'], post.image_file)
+        picture_path = os.path.join(current_app.root_path, 'static', 'uploads', post.image_file)
         if os.path.exists(picture_path):
             os.remove(picture_path)
 
