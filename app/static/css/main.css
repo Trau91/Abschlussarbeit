@@ -1,21 +1,87 @@
+/* ================================================= */
+/* 1. STICKY FOOTER FIX (CSS Flexbox) */
+/* Stellt sicher, dass der Footer immer am unteren Rand klebt */
+/* ================================================= */
+
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
 body {
-    /* eine gut lesbare, moderne Schriftart */
-    font-family: 'arial', sans-serif;
-    /* Ein sehr heller Grauton als Hintergrund, um das minimalistische Design zu untermalen */
-    background-color: #f8f9fa;
+    display: flex;
+    flex-direction: column;
 }
 
-/* Stilisiert den Haupt-Inhaltsbereich zum Beispiel die Login-Box oder Post-Dteils */
-.content-section {
-    padding: 20px;
-    border: 1px solid #dee2e6;
-    border-radius: 5px;
-    background-color: #ffffff;
-    margin-bottom: 20px;
+/* Der Hauptinhalts-Container muss den restlichen Platz einnehmen */
+/* Dies entspricht deinem div.container mt-4 in layout.html */
+.container.mt-4 {
+    flex-grow: 1;
 }
 
-/* Verbessert die Lesbarkeit des Post-Inhalts */
-.article-content p {
-    line-height: 1.6;
-    color: #333;
+footer {
+    flex-shrink: 0;
+}
+
+/* ================================================= */
+/* 2. FARBPALETTE & THEME (NAUTILUS) */
+/* ================================================= */
+
+:root {
+    /* Hauptfarben des Nautilus Themas */
+    --color-primary: #1F3B4D;      /* Tiefes Marineblau (Technik/Tiefe) */
+    --color-secondary: #0087A3;    /* Akzentfarbe Aqua/Cyan (Wasser) */
+    --color-background: #f4f7f9;   /* Sehr heller, kühler Hintergrund */
+}
+
+/* Hintergrund des gesamten Bodys auf ein kühles Hellgrau setzen */
+body {
+    background-color: var(--color-background);
+}
+
+/* 2.1. Navbar-Styling */
+.navbar {
+    background-color: var(--color-primary) !important;
+    border-bottom: 3px solid var(--color-secondary); /* Akzent-Linie */
+}
+
+.navbar-brand, .nav-link {
+    color: #ffffff !important; /* Text in der Navbar weiß */
+}
+
+.nav-link:hover {
+    color: var(--color-secondary) !important; /* Akzentfarbe beim Hovern */
+}
+
+/* 2.2. Button-Styling (Fokus auf Primary und Danger) */
+
+/* Primäre Aktionen (Speichern, Erstellen) */
+.btn-primary {
+    background-color: var(--color-secondary);
+    border-color: var(--color-secondary);
+}
+.btn-primary:hover {
+    background-color: #006b81; /* Dunkler beim Hovern */
+    border-color: #006b81;
+}
+
+/* Danger Aktionen (Löschen) und Admin-Dashboard-Link */
+.btn-danger, .nav-link.text-danger {
+    background-color: #b73229 !important; /* Satteres, dunkleres Rot */
+    border-color: #b73229 !important;
+    color: white !important;
+}
+.btn-danger:hover, .nav-link.text-danger:hover {
+    background-color: #8c2621 !important;
+    border-color: #8c2621 !important;
+}
+
+/* 2.3. Social Media Icons im Footer */
+/* Die Farbzuweisungen bleiben im HTML, aber wir fügen eine leichte Vergrößerung beim Hovern hinzu */
+footer a i {
+    transition: transform 0.2s;
+}
+
+footer a i:hover {
+    transform: scale(1.15); /* Leichter Zoom-Effekt */
 }
