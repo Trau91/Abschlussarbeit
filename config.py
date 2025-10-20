@@ -23,8 +23,18 @@ class Config:
 
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
-    # Dies ist der Pfad innerhalb des Dateisystems, wo Uploads gespeichert werden
-    UPLOAD_FOLDER = os.path.join(os.path.abspath(os.path.dirname(__file__)), 'static', 'uploads')
+    # --- KORREKTUR DES UPLOAD-PFADES ---
+
+    # 1. Definiere den Basis-Pfad (Projektstammverzeichnis)
+    # Gehe vom aktuellen Verzeichnis (__file__) eine Ebene höher, um den 'Abschlussarbeit'-Ordner zu finden.
+    # WICHTIG: Wenn Config in app/config.py liegt, ist das dirname(dirname(__file__))
+    basedir = os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
+
+    # 2. Setze den UPLOAD_FOLDER relativ zum Projektstamm ('Abschlussarbeit/')
+    # Der korrekte Pfad ist: Abschlussarbeit/app/static/uploads
+    UPLOAD_FOLDER = os.path.join(basedir, 'app', 'static', 'uploads')
+
+    # --- ENDE KORREKTUR ---
 
     # Erlaubte Dateiendungen für den Upload
     ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
