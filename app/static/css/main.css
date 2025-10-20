@@ -1,0 +1,21 @@
+body {
+    /* eine gut lesbare, moderne Schriftart */
+    font-family: 'arial', sans-serif;
+    /* Ein sehr heller Grauton als Hintergrund, um das minimalistische Design zu untermalen */
+    background-color: #f8f9fa;
+}
+
+/* Stilisiert den Haupt-Inhaltsbereich zum Beispiel die Login-Box oder Post-Dteils */
+.content-section {
+    padding: 20px;
+    border: 1px solid #dee2e6;
+    border-radius: 5px;
+    background-color: #ffffff;
+    margin-bottom: 20px;
+}
+
+/* Verbessert die Lesbarkeit des Post-Inhalts */
+.article-content p {
+    line-height: 1.6;
+    color: #333;
+}

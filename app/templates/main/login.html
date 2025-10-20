@@ -1,0 +1,43 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <form method="POST" action="" class="content-section p-4 border rounded shadow-sm">
+                {{ form.hidden_tag() }}
+                <fieldset class="form-group">
+                    <legend class="border-bottom mb-4">Admin Login</legend>
+
+                    <div class="form-group mb-3">
+                        {{ form.email.label(class="form-label") }}
+                        {{ form.email(class="form-control" + (' is-invalid' if form.email.errors else '')) }}
+                        {% for error in form.email.errors %}
+                            <div class="invalid-feedback">
+                                <span>{{ error }}</span>
+                            </div>
+                        {% endfor %}
+                    </div>
+
+                    <div class="form-group mb-3">
+                        {{ form.password.label(class="form-label") }}
+                        {{ form.password(class="form-control" + (' is-invalid' if form.password.errors else '')) }}
+                        {% for error in form.password.errors %}
+                            <div class="invalid-feedback">
+                                <span>{{ error }}</span>
+                            </div>
+                        {% endfor %}
+                    </div>
+
+                    <div class="form-check mb-3">
+                        {{ form.remember_me(class="form-check-input") }}
+                        {{ form.remember_me.label(class="form-check-label") }}
+                    </div>
+
+                </fieldset>
+                <div class="form-group">
+                    {{ form.submit(class="btn btn-danger mt-3") }}
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock content %}

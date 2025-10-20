@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <article class="content-section">
+        <div class="media-body">
+            <div class="article-metadata mb-3">
+                <h2 class="article-title text-center mb-4">{{ post.title }}</h2>
+                <small class="text-muted d-block text-center">
+                    Veröffentlicht am: {{ post.created_at.strftime('%d.%m.%Y um %H:%M') }}
+                </small>
+            </div>
+
+            {% if post.image_file and post.image_file != 'default.jpg' %}
+                <div class="text-center mb-4">
+                    <img src="{{ url_for('static', filename='uploads/' + post.image_file) }}"
+                         class="img-fluid rounded shadow"
+                         alt="{{ post.title }}"
+                         style="max-height: 400px; object-fit: cover;">
+                </div>
+            {% endif %}
+
+            <div class="article-content mt-4">
+                <p>{{ post.content }}</p>
+            </div>
+        </div>
+    </article>
+
+    <div class="mt-5 text-center">
+        <a href="{{ url_for('main.index') }}" class="btn btn-outline-secondary">Zurück zur Übersicht</a>
+    </div>
+
+{% endblock content %}

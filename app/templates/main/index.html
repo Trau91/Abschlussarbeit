@@ -1,0 +1,62 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <h1 class="mb-4">Aktuelle Fortschritte des Tauchgleiter-Projekts</h1>
+
+    {% for post in posts.items %}
+        <div class="card mb-4 shadow-sm">
+            <div class="row g-0">
+                <div class="col-md-4">
+                    <img src="{{ url_for('static', filename='uploads/' + post.image_file) }}"
+                         class="img-fluid rounded-start"
+                         alt="{{ post.title }}">
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h2 class="card-title">
+                            <a href="{{ url_for('main.post_detail', post_id=post.id) }}" class="text-decoration-none text-dark">
+                                {{ post.title }}
+                            </a>
+                        </h2>
+                        <p class="card-text">
+                            <small class="text-muted">
+                                Veröffentlicht am: {{ post.created_at.strftime('%d.%m.%Y um %H:%M') }}
+                            </small>
+                        </p>
+                        <p class="card-text">{{ post.content[:250] }}{% if post.content|length > 250 %}...{% endif %}</p>
+                        <a href="{{ url_for('main.post_detail', post_id=post.id) }}" class="btn btn-sm btn-outline-primary">Weiterlesen</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+
+    {% if posts.pages > 1 %}
+        <nav aria-label="Seiten-Navigation">
+            <ul class="pagination justify-content-center">
+                <li class="page-item {% if not posts.has_prev %}disabled{% endif %}">
+                    <a class="page-link" href="{{ url_for('main.index', page=posts.prev_num) }}" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+
+                {% for page_num in posts.iter_pages() %}
+                    {% if page_num %}
+                        <li class="page-item {% if page_num == posts.page %}active{% endif %}">
+                            <a class="page-link" href="{{ url_for('main.index', page=page_num) }}">{{ page_num }}</a>
+                        </li>
+                    {% else %}
+                        <li class="page-item disabled"><a class="page-link" href="#">...</a></li>
+                    {% endif %}
+                {% endfor %}
+
+                <li class="page-item {% if not posts.has_next %}disabled{% endif %}">
+                    <a class="page-link" href="{{ url_for('main.index', page=posts.next_num) }}" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    {% endif %}
+
+{% endblock content %}
