@@ -28,7 +28,7 @@ class Config:
     # 1. Definiere den Basis-Pfad (Projektstammverzeichnis)
     # Gehe vom aktuellen Verzeichnis (__file__) eine Ebene höher, um den 'Abschlussarbeit'-Ordner zu finden.
     # WICHTIG: Wenn Config in app/config.py liegt, ist das dirname(dirname(__file__))
-    basedir = os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
+    basedir = os.path.abspath(os.path.dirname(__file__))
 
     # 2. Setze den UPLOAD_FOLDER relativ zum Projektstamm ('Abschlussarbeit/')
     # Der korrekte Pfad ist: Abschlussarbeit/app/static/uploads
