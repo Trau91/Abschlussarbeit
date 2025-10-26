@@ -92,7 +92,7 @@ def update_post(post_id):
         if form.image.data:
             # Altes Bild löschen, falls es nicht default.jpg ist
             if post.image_file != 'default.jpg':
-                old_picture_path = os.path.join(current_app.root_path, 'static', 'upload', post.image_file)
+                old_picture_path = os.path.join(current_app.root_path, 'static', 'uploads', post.image_file)
                 if os.path.exists(old_picture_path):
                     os.remove(old_picture_path)
 
