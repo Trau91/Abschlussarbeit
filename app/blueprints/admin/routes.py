@@ -15,10 +15,8 @@ admin = Blueprint('admin', __name__)
 def admin_required(f):
     @login_required  # Schutz: Nur eingeloggte User
     def decorated_function(*args, **kwargs):
-        if not current_user.is_admin:
-            # Schutz: Nur Admin-User
+        if not current_user.is_admin: # Schutz: Nur Admin-User
             flash('Zugriff verweigert. Diese Seite ist nur für Administratoren.', 'danger')
-            # Verwende abort(403) für "Forbidden" oder leite zur Startseite um
             return redirect(url_for('main.index'))
         return f(*args, **kwargs)
 
@@ -27,14 +25,12 @@ def admin_required(f):
 
 
 # --- Hilfsfunktion für sicheren Bild-Upload ---
+
 def save_picture(form_picture):
-    # 1. Dateiendung prüfen (wird auch im Formular geprüft, hier doppelt gemoppelt für die Sicherheit)
-    # Behält die Config-Einstellung zur Validierung bei
     if not form_picture.filename.lower().endswith(tuple(current_app.config['ALLOWED_EXTENSIONS'])):
         return None
 
-    # 2. Eindeutigen Dateinamen erstellen (Sicherheit: Schutz vor Pfadmanipulation)
-    random_hex = str(uuid4()) # Nutzt UUID, wie im Pflichtenheft gefordert
+    random_hex = str(uuid4())
     _, f_ext = os.path.splitext(form_picture.filename)
     picture_fn = random_hex + f_ext
     upload_path = os.path.join(current_app.root_path, 'static', 'uploads', picture_fn)
