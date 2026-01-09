@@ -12,6 +12,7 @@ admin = Blueprint('admin', __name__)
 
 
 # --- Dekorator zur Überprüfung der Admin-Rolle (Zugangskontrolle) ---
+
 def admin_required(f):
     @login_required  # Schutz: Nur eingeloggte User
     def decorated_function(*args, **kwargs):
