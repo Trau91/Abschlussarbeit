@@ -7,9 +7,12 @@
         <div class="card mb-4 shadow-sm">
             <div class="row g-0">
                 <div class="col-md-4">
+                    {% if post.image_file %}
                     <img src="{{ url_for('static', filename='uploads/' + post.image_file) }}"
                          class="img-fluid rounded-start"
-                         alt="{{ post.title }}">
+                         alt="{{ post.title }}"
+                         style="height: 100%; min-height: 200px; object-fit: cover;">
+                    {% endif %}
                 </div>
                 <div class="col-md-8">
                     <div class="card-body">
@@ -39,7 +42,6 @@
                         <span aria-hidden="true">&laquo;</span>
                     </a>
                 </li>
-
                 {% for page_num in posts.iter_pages() %}
                     {% if page_num %}
                         <li class="page-item {% if page_num == posts.page %}active{% endif %}">
@@ -49,7 +51,6 @@
                         <li class="page-item disabled"><a class="page-link" href="#">...</a></li>
                     {% endif %}
                 {% endfor %}
-
                 <li class="page-item {% if not posts.has_next %}disabled{% endif %}">
                     <a class="page-link" href="{{ url_for('main.index', page=posts.next_num) }}" aria-label="Next">
                         <span aria-hidden="true">&raquo;</span>
@@ -58,5 +59,4 @@
             </ul>
         </nav>
     {% endif %}
-
 {% endblock content %}

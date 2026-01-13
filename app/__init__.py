@@ -44,22 +44,19 @@ def create_app(config_class=Config):
 
         # Beispielbeiträge nur hinzufügen, wenn die Datenbank leer ist
         if not Post.query.first():
-            print("Füge Beispielbeiträge hinzu...")
-            # NEU: Um Fremdschlüsselprobleme zu vermeiden, weisen wir die Postings
-            # dem Admin zu, falls er existiert.
+            print("Füge Beispielbeitrag hinzu...")
             admin_user = User.query.filter_by(is_admin=True).first()
             user_id_for_posts = admin_user.id if admin_user else None
 
             post1 = Post(
                 title='Erster Prototypen-Update',
                 content='Heute haben wir mit dem Bau des Hauptrahmens begonnen. Es läuft gut!',
-                image_file='default.jpg',
+                image_file='prototype_1.jpg',  # Hier den echten Dateinamen rein
                 user_id=user_id_for_posts
             )
 
-            db.session.add_all([post1])
+            db.session.add(post1)
             db.session.commit()
-            print("Beispielbeiträge hinzugefügt.")
 
         # NEU: Erstelle einen Admin-Benutzer, falls noch keiner existiert (Sichere Methode)
         admin_init_password = os.environ.get('ADMIN_INIT_PASSWORD')
