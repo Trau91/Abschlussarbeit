@@ -104,36 +104,38 @@ a:hover {
 }
 
 /* ================================================= */
-/* 6. BLOG-DARSTELLUNG (KOMPAKTE CARDS & DETAILS)    */
+/* 6. BLOG-DARSTELLUNG (KOMPAKTE CARDS)              */
 /* ================================================= */
 
 .card {
     border: none;
     border-radius: 10px;
-    transition: box-shadow 0.3s ease;
-    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    overflow: hidden; /* Verhindert, dass Bilder über die Ecken ragen */
 }
 
 .card:hover {
+    transform: translateY(-5px);
     box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1) !important;
 }
 
-/* Bild-Optimierung: Größere Darstellung */
+/* Bildgröße in der Übersicht optimiert (Rückgängig machen der 180px Beschränkung) */
+.card .col-md-4 img {
+    width: 100%;
+    height: 100% !important; /* Nutzt die volle verfügbare Höhe der Card */
+    min-height: 250px !important; /* Erhöht die Mindestpräsenz des Bildes */
+    object-fit: cover;
+    object-position: center;
+}
+
+/* Stellt sicher, dass Bild und Textspalte immer gleich hoch sind */
 .card .row {
     display: flex;
     align-items: stretch;
 }
 
-.card .col-md-4 img, .blog-detail-img {
-    width: 100%;
-    height: 100% !important;
-    min-height: 250px;
-    object-fit: cover;
-    object-position: center;
-}
-
 .card-body {
-    padding: 1.5rem !important;
+    padding: 1rem !important;
 }
 
 .card-title {
@@ -141,33 +143,12 @@ a:hover {
     margin-bottom: 0.5rem;
 }
 
-/* Zeilenumbrüche & Textfluss */
+/* Zeilenumbrüche erhalten & Textfluss */
 .article-content, .card-text {
     white-space: pre-wrap;
     word-wrap: break-word;
-    line-height: 1.6;
-    font-size: 1rem;
-}
-
-/* ZURÜCK-BUTTON & WEITERLESEN-BUTTON (NUR FARBWECHSEL) */
-.btn-outline-primary,
-a.btn-outline-primary,
-.btn-back {
-    color: var(--color-secondary) !important;
-    border: 1px solid var(--color-secondary) !important;
-    background-color: transparent !important;
-    transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
-    border-radius: 5px;
-    padding: 6px 16px;
-    display: inline-block;
-}
-
-.btn-outline-primary:hover,
-.btn-back:hover {
-    background-color: var(--color-secondary) !important;
-    color: white !important;
-    text-decoration: none;
-    /* Transformationen und Schatten wurden entfernt */
+    line-height: 1.5;
+    font-size: 0.95rem;
 }
 
 /* ================================================= */

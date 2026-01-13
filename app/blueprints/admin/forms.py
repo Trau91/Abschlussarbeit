@@ -6,11 +6,13 @@ from wtforms.validators import DataRequired, Length, ValidationError
 class PostForm(FlaskForm):
     # Titel des Beitrags: Muss vorhanden sein und zwischen 2 und 100 Zeichen lang
     title = StringField('Titel',
+                        default="Meilenstein: ",
                         validators=[DataRequired(message='Der Titel ist erforderlich.'),
                                     Length(min=2, max=100, message='Titel muss zwischen 2 und 100 Zeichen lang sein.')])
 
     # Inhalt des Beitrags: Muss vorhanden sein
     content = TextAreaField('Inhalt',
+                            default="Status: \nTechnische Details: \nTeam-Notiz: ",
                             validators=[DataRequired(message='Der Inhalt ist erforderlich.')])
 
     # Optionales Bildfeld:
