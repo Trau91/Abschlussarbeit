@@ -1,6 +1,5 @@
 /* ================================================= */
-/* 1. STICKY FOOTER FIX (CSS Flexbox) */
-/* Stellt sicher, dass der Footer immer am unteren Rand klebt */
+/* 1. LAYOUT & STICKY FOOTER                         */
 /* ================================================= */
 
 html, body {
@@ -11,10 +10,9 @@ html, body {
 body {
     display: flex;
     flex-direction: column;
+    background-color: var(--color-background);
 }
 
-/* Der Hauptinhalts-Container muss den restlichen Platz einnehmen */
-/* Dies entspricht deinem div.container mt-4 in layout.html */
 .container.mt-4 {
     flex-grow: 1;
 }
@@ -24,64 +22,194 @@ footer {
 }
 
 /* ================================================= */
-/* 2. FARBPALETTE & THEME (NAUTILUS) */
+/* 2. FARBPALETTE & THEME (NAUTILUS)                 */
 /* ================================================= */
 
 :root {
-    /* Hauptfarben des Nautilus Themas */
-    --color-primary: #1F3B4D;      /* Tiefes Marineblau (Technik/Tiefe) */
-    --color-secondary: #0087A3;    /* Akzentfarbe Aqua/Cyan (Wasser) */
-    --color-background: #f4f7f9;   /* Sehr heller, kühler Hintergrund */
+    --color-primary: #1F3B4D;      /* Tiefes Marineblau */
+    --color-secondary: #0087A3;    /* Akzentfarbe Aqua/Cyan */
+    --color-background: #f4f7f9;   /* Heller Hintergrund */
+    --color-danger: #b73229;       /* Projekt-Rot */
 }
 
-/* Hintergrund des gesamten Bodys auf ein kühles Hellgrau setzen */
-body {
-    background-color: var(--color-background);
+/* ================================================= */
+/* 3. GLOBALE ELEMENTE & LINKS                       */
+/* ================================================= */
+
+a {
+    color: var(--color-secondary);
+    text-decoration: none;
+    transition: color 0.2s ease-in-out;
 }
 
-/* 2.1. Navbar-Styling */
+a:hover {
+    color: var(--color-primary);
+}
+
+.form-control:focus, .form-select:focus {
+    border-color: var(--color-secondary);
+    box-shadow: 0 0 0 0.25rem rgba(0, 135, 163, 0.25);
+}
+
+/* ================================================= */
+/* 4. NAVIGATION (NAVBAR)                            */
+/* ================================================= */
+
 .navbar {
     background-color: var(--color-primary) !important;
-    border-bottom: 3px solid var(--color-secondary); /* Akzent-Linie */
+    border-bottom: 3px solid var(--color-secondary);
 }
 
 .navbar-brand, .nav-link {
-    color: #ffffff !important; /* Text in der Navbar weiß */
+    color: #ffffff !important;
 }
 
 .nav-link:hover {
-    color: var(--color-secondary) !important; /* Akzentfarbe beim Hovern */
+    color: var(--color-secondary) !important;
 }
 
-/* 2.2. Button-Styling (Fokus auf Primary und Danger) */
+/* ================================================= */
+/* 5. BUTTONS & AKTIONEN                             */
+/* ================================================= */
 
-/* Primäre Aktionen (Speichern, Erstellen) */
-.btn-primary {
-    background-color: var(--color-secondary);
-    border-color: var(--color-secondary);
-}
-.btn-primary:hover {
-    background-color: #006b81; /* Dunkler beim Hovern */
-    border-color: #006b81;
-}
-
-/* Danger Aktionen (Löschen) und Admin-Dashboard-Link */
-.btn-danger, .nav-link.text-danger {
-    background-color: #b73229 !important; /* Satteres, dunkleres Rot */
-    border-color: #b73229 !important;
+/* Gefüllte Buttons (Speichern, Erstellen) */
+.btn-primary, .btn-success {
+    background-color: var(--color-secondary) !important;
+    border-color: var(--color-secondary) !important;
     color: white !important;
 }
-.btn-danger:hover, .nav-link.text-danger:hover {
-    background-color: #8c2621 !important;
-    border-color: #8c2621 !important;
+
+.btn-primary:hover, .btn-success:hover {
+    filter: brightness(90%);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
 
-/* 2.3. Social Media Icons im Footer */
-/* Die Farbzuweisungen bleiben im HTML, aber wir fügen eine leichte Vergrößerung beim Hovern hinzu */
+/* Outline Buttons (Weiterlesen-Button) */
+.btn-outline-primary {
+    color: var(--color-secondary) !important;
+    border-color: var(--color-secondary) !important;
+    transition: all 0.3s ease;
+}
+
+.btn-outline-primary:hover {
+    background-color: var(--color-secondary) !important;
+    color: white !important;
+    transform: scale(1.05);
+}
+
+/* Danger Buttons (Löschen) */
+.btn-danger {
+    background-color: var(--color-danger) !important;
+    border-color: var(--color-danger) !important;
+}
+
+/* ================================================= */
+/* 6. BLOG-DARSTELLUNG (KOMPAKTE CARDS & DETAILS)    */
+/* ================================================= */
+
+.card {
+    border: none;
+    border-radius: 10px;
+    transition: box-shadow 0.3s ease;
+    overflow: hidden;
+}
+
+.card:hover {
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Bild-Optimierung: Größere Darstellung */
+.card .row {
+    display: flex;
+    align-items: stretch;
+}
+
+.card .col-md-4 img, .blog-detail-img {
+    width: 100%;
+    height: 100% !important;
+    min-height: 250px;
+    object-fit: cover;
+    object-position: center;
+}
+
+.card-body {
+    padding: 1.5rem !important;
+}
+
+.card-title {
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+}
+
+/* Zeilenumbrüche & Textfluss */
+.article-content, .card-text {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    line-height: 1.6;
+    font-size: 1rem;
+}
+
+/* ZURÜCK-BUTTON & WEITERLESEN-BUTTON (NUR FARBWECHSEL) */
+.btn-outline-primary,
+a.btn-outline-primary,
+.btn-back {
+    color: var(--color-secondary) !important;
+    border: 1px solid var(--color-secondary) !important;
+    background-color: transparent !important;
+    transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+    border-radius: 5px;
+    padding: 6px 16px;
+    display: inline-block;
+}
+
+.btn-outline-primary:hover,
+.btn-back:hover {
+    background-color: var(--color-secondary) !important;
+    color: white !important;
+    text-decoration: none;
+    /* Transformationen und Schatten wurden entfernt */
+}
+
+/* ================================================= */
+/* 7. ADMIN-BEREICH & TEXTFELDER                     */
+/* ================================================= */
+
+textarea.form-control {
+    color: #000000 !important;
+    font-weight: 600;
+    font-family: 'Courier New', Courier, monospace;
+    background-color: #ffffff;
+    padding: 15px;
+}
+
+/* ================================================= */
+/* 8. PAGINIERUNG (SEITENWECHSEL)                    */
+/* ================================================= */
+
+.pagination .page-link {
+    color: var(--color-primary);
+    border-color: #dee2e6;
+}
+
+.pagination .page-item.active .page-link {
+    background-color: var(--color-secondary) !important;
+    border-color: var(--color-secondary) !important;
+    color: white !important;
+}
+
+.pagination .page-link:hover {
+    background-color: #f8f9fa;
+    color: var(--color-secondary);
+}
+
+/* ================================================= */
+/* 9. FOOTER & SOCIAL MEDIA                          */
+/* ================================================= */
+
 footer a i {
     transition: transform 0.2s;
 }
 
 footer a i:hover {
-    transform: scale(1.15); /* Leichter Zoom-Effekt */
+    transform: scale(1.2);
 }
