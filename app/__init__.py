@@ -53,7 +53,7 @@ def create_app(config_class=Config):
             post1 = Post(
                 title='Erster Prototypen-Update',
                 content='Heute haben wir mit dem Bau des Hauptrahmens begonnen. Es läuft gut!',
-                image_file='prototype_update.jpg',
+                image_file='default.jpg',
                 user_id=user_id_for_posts
             )
 
